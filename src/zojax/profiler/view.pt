@@ -1,0 +1,104 @@
+<html xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@standard_macros/view">
+  
+  <body>
+    <metal:block fill-slot="body"
+		 tal:define="stats view/listStats">
+      <h1>zojax Profiler</h1>
+
+      <form method="post" action="zojax.profiler">
+	<div>
+	  Enable profiler
+	  <div>
+	    <input type="text" size="2" name="calls:int"
+		   tal:attributes="value request/calls|string:2" />
+	    <input type="submit" name="profile.install" value="Enable" />
+	    <input type="submit" name="profile.reload" value="Reload" />
+	  </div>
+	</div>
+      </form>
+
+      <br /><br />
+      <hr />
+
+      <div tal:condition="stats">
+	<form method="post" action="zojax.profiler">
+	  <table>
+	    <tr>
+	      <td>Select request:</td>
+	      <td><select name="stats" tal:define="default request/stats|nothing">
+		  <option tal:repeat="stat stats"
+			  tal:attributes="value stat/uri;
+					  selected python:stat['uri'] == default"
+			  tal:content="string:${stat/uri} (${stat/calls} calls)"></option>
+		</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>Number of records:</td>
+	      <td><input type="text" name="limit:int" 
+			 tal:attributes="value request/limit|string:500" />
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>Mode:</td>
+	      <td>
+		<select name="mode"
+			tal:define="default request/mode|string:stats">
+		  <option tal:repeat="item python:('stats', 'callees', 'callers')"
+			  tal:content="item" 
+			  tal:attributes="value item; selected python:item == default">
+		  </option>
+		</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>Sort on:</td>
+	      <td><select name="sorton"
+			  tal:define="default request/sorton|string:time">
+		  <option tal:repeat="item python:(
+				      ('time', 'internal time'),
+				      ('cumulative', 'cumulative time'),
+				      ('calls', 'call count'),
+				      ('pcalls', 'primitive call count'),
+				      ('name', 'function name'),
+				      ('file', 'file name'),
+				      ('module', 'module name'),
+				      ('line', 'line number'),
+				      ('nfl', 'name/file/line'),
+				      ('stdname', 'standard name'))"
+		    	  tal:attributes="value python:item[0]; 
+					  selected python:item[0] == default"
+			  tal:content="python:item[1]"></option>
+		</select>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td>Stdname regexp:</td>
+	      <td><input name="stdnameRe" 
+			 tal:attributes="value request/stdnameRe|nothing"></td>
+	    </tr>
+	    <tr>
+	      <td>Strip dirs:</td>
+	      <td><input type="checkbox" name="stripdirs:bool"
+			 tal:attributes="checked request/stripdirs|nothing" />
+	      </td>
+	    </tr>
+	  </table>
+
+	  <br />
+	  <input type="submit" name="view_stats" value="Update" />
+	</form>
+  
+	<br />
+	<br />
+	<pre tal:content="view/viewStats"></pre>
+      </div>
+      <div tal:condition="not:stats">
+	There are no any statistics.
+      </div>
+
+    </metal:block>
+  </body>
+</html>

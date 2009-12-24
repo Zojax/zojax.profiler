@@ -1,0 +1,14 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:browser="http://namespaces.zope.org/browser">
+
+  <browser:page
+     name="zojax.profiler"
+     for="zope.app.folder.interfaces.IRootFolder"
+     template="view.pt"
+     class=".view.Profiler"
+     title="Profiler"
+     menu="zmi_actions"
+     permission="zope.ManageServices" />
+
+</configure>
