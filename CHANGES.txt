@@ -1,16 +1,8 @@
-=======
-CHANGES
-=======
-
-1.1.0 (2008-03-28)
+1.0.2 (Unreleased)
 ------------------
 
-- python2.5 support
 
-- code moved to svn.zope.org
-
-
-1.0.0 (2008-02-04)
+1.0.1 (2010-01-19)
 ------------------
 
-- Initial release.
+- zojax initial release
