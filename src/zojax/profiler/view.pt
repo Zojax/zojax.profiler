@@ -5,16 +5,16 @@
   <body>
     <metal:block fill-slot="body"
 		 tal:define="stats view/listStats">
-      <h1>zojax Profiler</h1>
+      <h1 i18n:translate="">zojax Profiler</h1>
 
       <form method="post" action="zojax.profiler">
-	<div>
+	<div i18n:translate="">
 	  Enable profiler
-	  <div>
+	  <div i18n:name="controls" >
 	    <input type="text" size="2" name="calls:int"
 		   tal:attributes="value request/calls|string:2" />
-	    <input type="submit" name="profile.install" value="Enable" />
-	    <input type="submit" name="profile.reload" value="Reload" />
+	    <input type="submit" name="profile.install" value="Enable" i18n:attributes="value" />
+	    <input type="submit" name="profile.reload" value="Reload" i18n:attributes="value" />
 	  </div>
 	</div>
       </form>
@@ -26,7 +26,7 @@
 	<form method="post" action="zojax.profiler">
 	  <table>
 	    <tr>
-	      <td>Select request:</td>
+	      <td i18n:translate="">Select request:</td>
 	      <td><select name="stats" tal:define="default request/stats|nothing">
 		  <option tal:repeat="stat stats"
 			  tal:attributes="value stat/uri;
@@ -36,13 +36,13 @@
 	      </td>
 	    </tr>
 	    <tr>
-	      <td>Number of records:</td>
+	      <td i18n:translate="">Number of records:</td>
 	      <td><input type="text" name="limit:int" 
 			 tal:attributes="value request/limit|string:500" />
 	      </td>
 	    </tr>
 	    <tr>
-	      <td>Mode:</td>
+	      <td i18n:translate="">Mode:</td>
 	      <td>
 		<select name="mode"
 			tal:define="default request/mode|string:stats">
@@ -54,7 +54,7 @@
 	      </td>
 	    </tr>
 	    <tr>
-	      <td>Sort on:</td>
+	      <td i18n:translate="">Sort on:</td>
 	      <td><select name="sorton"
 			  tal:define="default request/sorton|string:time">
 		  <option tal:repeat="item python:(
@@ -75,12 +75,12 @@
 	      </td>
 	    </tr>
 	    <tr>
-	      <td>Stdname regexp:</td>
+	      <td i18n:translate="">Stdname regexp:</td>
 	      <td><input name="stdnameRe" 
-			 tal:attributes="value request/stdnameRe|nothing"></td>
+			 tal:attributes="value request/stdnameRe|nothing" /></td>
 	    </tr>
 	    <tr>
-	      <td>Strip dirs:</td>
+	      <td i18n:translate="">Strip dirs:</td>
 	      <td><input type="checkbox" name="stripdirs:bool"
 			 tal:attributes="checked request/stripdirs|nothing" />
 	      </td>
@@ -88,7 +88,7 @@
 	  </table>
 
 	  <br />
-	  <input type="submit" name="view_stats" value="Update" />
+	  <input type="submit" name="view_stats" value="Update" i18n:attributes="value" />
 	</form>
   
 	<br />
